@@ -1,7 +1,12 @@
+import Navbar from '@/components/Navbar'
+import Link from 'next/link'
+import styles from '@/styles/Home.module.css'
+
 export default function Details({ details }) {
   console.log(details)
   return (
     <>
+    <Navbar />
 {
  details[0].name.official
 }
