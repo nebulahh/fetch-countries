@@ -1,15 +1,50 @@
 import Navbar from '@/components/Navbar'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
+import Image from 'next/image'
 
 export default function Details({ details }) {
-  console.log(details)
+  console.log(details[0])
   return (
     <>
     <Navbar />
+<Link href={`/`} passHref>
+    <div className={styles.back}>
+    <p>Back</p>
+    </div>
+</Link>
+
 {
- details[0].name.official
+ details.map((country, index) => {
+   return (
+     <div key={index}>
+<div className={styles.card}>
+  <img src={country.flags.png} alt=""/>
+</div>
+     
+     <b>{country.name.official}</b>
+     
+     <p>Native Name: {country.name.nativeName?.eng?.official}</p>
+     <p>Population: {country.population}</p>
+    <p>Region: {country.region}</p>
+    <p>Sub-region: {country.subregion}</p>
+    <p>Capital: {country.capital}</p>
+    
+    <div>
+    <p>Top Level Domain: {country.tld}</p>
+    <p>Currencies: {country.currencies.BBD?.name}</p>
+    <p>Languages: {country.languages.eng}</p>
+    </div>
+    
+    <div>
+    <b>Border countries</b>
+    </div>
+    
+     </div>
+     )
+ })
 }
+
     </>
   )
 }
