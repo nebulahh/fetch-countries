@@ -1,50 +1,52 @@
 import Navbar from '@/components/Navbar'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 export default function Details({ details }) {
-  console.log(details[0])
   return (
     <>
-    <Navbar />
-<Link href={`/`} passHref>
-    <div className={styles.back}>
-    <p>Back</p>
-    </div>
-</Link>
-
-{
- details.map((country, index) => {
-   return (
-     <div key={index}>
-<div className={styles.card}>
-  <img src={country.flags.png} alt=""/>
-</div>
-     
-     <b>{country.name.official}</b>
-     
-     <p>Native Name: {country.name.nativeName?.eng?.official}</p>
-     <p>Population: {country.population}</p>
-    <p>Region: {country.region}</p>
-    <p>Sub-region: {country.subregion}</p>
-    <p>Capital: {country.capital}</p>
-    
-    <div>
-    <p>Top Level Domain: {country.tld}</p>
-    <p>Currencies: {country.currencies.BBD?.name}</p>
-    <p>Languages: {country.languages.eng}</p>
-    </div>
-    
-    <div>
-    <b>Border countries</b>
-    </div>
-    
-     </div>
-     )
- })
-}
-
+      <Navbar />
+      
+      <main>
+        <div className={styles.container}>
+          <Link className={styles.anchor} href={`/`} passHref>
+            <div className={styles.back}>
+              <span>
+                <FontAwesomeIcon icon={faLongArrowLeft} />
+              </span>
+              <p>Back</p>
+            </div>
+          </Link>
+          {
+            details.map((country, index) => {
+              return (
+                <div key={index}>
+                  <div className={styles.card}>
+                    <img src={country.flags.png} alt={country.flags.alt} />
+                  </div>
+                  <div className={styles.detailDesc}>
+                    <b className={styles.name}>{country.name.official}</b>
+                    <div className={styles.detailContent}>
+                      <p>Native Name: {country.name.nativeName?.eng?.official}</p>
+                      <p>Population: {country.population}</p>
+                      <p>Region: {country.region}</p>
+                      <p>Sub-region: {country.subregion}</p>
+                      <p>Capital: {country.capital}</p>
+                    </div>
+                    <div className={styles.moreDetail}>
+                      <p>Top Level Domain: {country.tld}</p>
+                      <p>Currencies: {country.currencies.BBD?.name}</p>
+                      <p>Languages: {country.languages.eng}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          }
+        </div>
+      </main>
     </>
   )
 }

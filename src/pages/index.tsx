@@ -1,76 +1,103 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Navbar from '@/components/Navbar'
-
-const inter = Inter({ subsets: ['latin'] })
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
 
 export default function Home({ countries }) {
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [allCountries, setAllCountries] = useState(countries)
+  const [searchParam] = useState(["capital", "name", "region"]);
+  const [filterParam, setFilterParam] = useState(["All"]);
+  
+  const data = Object.values(allCountries);
 
+  function search(items: any) {
+    return items.filter((item: any) => {
+      if (item.region == filterParam) {
+        return searchParam.some((newItem) => {
+          return (
+            item?.region
+              .toString()
+              .toLowerCase()
+              .indexOf(searchQuery.toLowerCase()) > -1
+          );
+        });
+      } else if (filterParam == "All") {
+        return searchParam.some((newItem) => {
+          return (
+            item[newItem]?.common
+              ?.toString()
+              ?.toLowerCase()
+              ?.indexOf(searchQuery.toLowerCase()) > -1
+          );
+        });
+      }
+    });
+  }
   return (
-    <>
-    <Navbar />
-<main>
-<div className={styles.searchContainer}>
-  <div className={styles.searchBar}>
-<button className={styles.searchQuerySubmit} type="submit" name="searchQuerySubmit">
-      <svg
-      style={{width:24 +"px", height:24+"px" }}viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-      </svg>
-    </button>
-   
-    <input className={styles.searchQueryInput} type="text" name="searchQueryInput" placeholder="Search" value="" />
-    
-  </div>
-  
-  
-<select name="choice">
-  <option value="first">First Value</option>
-  <option value="second" selected>Second Value</option>
-  <option value="third">Third Value</option>
-</select>
+    <div className={styles.body}>
+      <Navbar />
+      <main>
+        <div className={styles.container}>
+          <div className={styles.searchContainer}>
+            <div className={styles.searchBarContainer}>
+              <div className={styles.searchBar}>
+                 <span>
+                   <FontAwesomeIcon icon={faSearch} />
+                 </span>
+                <input type="search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className={styles.searchQueryInput} placeholder="Search for a country..." name="search" />
+                  </div>
+                </div>
+            <select className={styles.filter}
+              onChange={(e) => {
+                setFilterParam(e.target.value);
+              }}
+              title='filter' name="choice">
+              <option value="All">Filter by Region</option>
+              <option value="Africa">Africa</option>
+              <option value="Americas">Americas</option>
+              <option value="Asia">Asia</option>
+              <option value="Europe">Europe</option>
+              <option value="Oceania">Oceania</option>
+            </select>
+          </div>
+                <div className={styles.grid} >
 
-</div>
-
-
-
-{
-  countries.map((country, index)=> {
-    return (
-      <div key={index}>
-<Link href={`/${country.name.common}`} passHref>
-
-<div className={styles.card}>
-  <img src={country.flags.png} alt=""/>
-  <div className={styles.description}>
-    <h2>{country.name.official}</h2>
-    <p>Population: {country.population}</p>
-    <p>Region: {country.region}</p>
-    <p>Capital: {country.capital}</p>
-    
-  </div>
-</div>
-</Link>
-        <hr />
-      </div>
-      )
-  })
-}
-</main>
-    </>
+          {
+            search(data).map((country: any, index: number) => {
+              return (
+                  <div className={styles.card} key={index}>
+                    <Link className={styles.anchor} href={`/${country.name.common}`} passHref>
+                      <img src={country.flags.png} alt={country.flags.alt} />
+                      <div className={styles.description}>
+                        <h2 className={styles.name}>{country.name.official}</h2>
+                        <p>Population: {country.population}</p>
+                        <p>Region: {country.region}</p>
+                        <p>Capital: {country.capital}</p>
+                      </div>
+                    </Link>
+                  </div>
+              )
+            })
+            }
+                </div>
+            
+        </div>
+      </main>
+    </div>
   )
+  
 }
 
 export async function getStaticProps() {
   const response = await fetch('https://restcountries.com/v3.1/all')
-  const data = await response.json()
-  console.log(data.slice(0, 2))
-  
+  const countries = await response.json()
+
   return {
     props: {
-      countries: data
+      countries
     }
   }
 }
