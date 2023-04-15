@@ -9,7 +9,7 @@ export default function Home({ countries }: any) {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [allCountries, setAllCountries] = useState(countries)
   const [searchParam] = useState(["capital", "name", "region"]);
-  const [filterParam, setFilterParam] = useState(["All"]);
+  const [filterParam, setFilterParam] = useState("All");
   
   const data = Object.values(allCountries);
 
