@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
-export default function Home({ countries }) {
+export default function Home({ countries }: any) {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [allCountries, setAllCountries] = useState(countries)
   const [searchParam] = useState(["capital", "name", "region"]);

@@ -4,7 +4,7 @@ import styles from '@/styles/Home.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-export default function Details({ details }) {
+export default function Details({ details }: any) {
   return (
     <>
       <Navbar />
