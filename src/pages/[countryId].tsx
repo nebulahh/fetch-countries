@@ -20,7 +20,7 @@ export default function Details({ details }: any) {
             </div>
           </Link>
           {
-            details.map((country, index) => {
+            details.map((country: any, index: number) => {
               return (
                 <div key={index}>
                   <div className={styles.card}>
