@@ -94,11 +94,11 @@ else if (filterParam == "All") {
 
 export async function getStaticProps() {
   const response = await fetch('https://restcountries.com/v3.1/all')
-  let countries = await response.json().slice(0, 50)
+  let countries = await response.json()
 
   return {
     props: {
-      countries
+      countries.slice(0, 50)
     }
   }
 }
