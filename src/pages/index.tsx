@@ -98,7 +98,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      countries: data.slice(0, 30000)
+      countries: data.slice(0, 50000)
     }
   }
 }
