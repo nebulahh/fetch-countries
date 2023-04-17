@@ -36,9 +36,9 @@ export default function Details({ details }: any) {
                       <p>Capital: {country.capital}</p>
                     </div>
                     <div className={styles.moreDetail}>
-                      <p>Top Level Domain: {country.tld}</p>
-                      <p>Currencies: {country.currencies.BBD?.name}</p>
-                      <p>Languages: {country.languages.eng}</p>
+                      <p>Top Level Domain: {country?.tld}</p>
+                      <p>Currencies: {country.currencies?.name}</p>
+                      <p>Languages: {country?.languages?.eng}</p>
                     </div>
                   </div>
                 </div>
