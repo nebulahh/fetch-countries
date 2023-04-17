@@ -94,7 +94,7 @@ else if (filterParam == "All") {
 
 export async function getStaticProps() {
   const response = await fetch('https://restcountries.com/v3.1/all')
-  let countries = 
+  let countries;
   setTimeout(() => {
   countries = await response.json().slice(0, 20)
 }, 50000);
