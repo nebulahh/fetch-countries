@@ -25,7 +25,7 @@ export default function Home({ countries }: any) {
           );
         });
       } 
-/*else if (filterParam == "All") {
+else if (filterParam == "All") {
         return searchParam.some((newItem) => {
           return (
             item[newItem]?.common
@@ -34,7 +34,7 @@ export default function Home({ countries }: any) {
               ?.indexOf(searchQuery.toLowerCase()) > -1
           );
         });
-      }*/
+      }
     });
   }
   return (
@@ -56,7 +56,7 @@ export default function Home({ countries }: any) {
                 setFilterParam(e.target.value);
               }}
               title='filter' name="choice">
-             {/* <option value="All">Filter by Region</option>*/}
+              <option value="All">Filter by Region</option>
               <option value="Africa">Africa</option>
               <option value="Americas">Americas</option>
               <option value="Asia">Asia</option>
@@ -93,8 +93,11 @@ export default function Home({ countries }: any) {
 }
 
 export async function getStaticProps() {
-  const response = await fetch('https://restcountries.com/v3.1/region/africa')
-  const countries = await response.json()
+  const response = await fetch('https://restcountries.com/v3.1/all')
+  let countries = 
+  setTimeout(() => {
+  countries = await response.json().slice(0, 20)
+}, 50000);
 
   return {
     props: {
