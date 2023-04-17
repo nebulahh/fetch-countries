@@ -8,9 +8,9 @@ export default function Navbar() {
                         <Link className={styles.anchor} href={`/`} passHref>
                               <p>Where in the world?</p>
                         </Link>
-                        <p>
+                        {/*<p>
                               <span> </span>Dark Mode
-                        </p>
+                        </p>*/}
                   </nav>
             </header>
       )
