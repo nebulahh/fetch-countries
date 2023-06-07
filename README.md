@@ -3,6 +3,8 @@ A frontend project that fetches data from an API using Next.js getStaticProps an
 
 **Link to project:** [https://fetch-countries.vercel.app/](https://fetch-countries.vercel.app/)
 
+<img src="fetch-country.png" alt="banner"/>
+
 ## How It's Made:
 
 **Tech used:** Next.js and TailwindCSS 
