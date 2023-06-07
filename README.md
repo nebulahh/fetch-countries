@@ -9,4 +9,4 @@ A frontend project that fetches data from an API using Next.js getStaticProps an
 
 **Tech used:** Next.js and TailwindCSS 
 
-The UI is gotten from frontendmentor. Nextjs was used to fetch data about countries from the countries API 
+The UI is from frontendmentors. Nextjs was used to fetch data about countries from the countries API, then, users can search for a country or filter by region and also get details about each country by clicking on them. 
